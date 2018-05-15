@@ -44,6 +44,7 @@ if (annyang) {
 	
 	'Export PDF': function() { exportPDF(); responsiveVoice.speak('Exporting this dashboard as PDF'); },
 	'Export Image': function() { exportImage(); responsiveVoice.speak('Exporting this dashboard as Image'); },
+	'Switch': function() { switchToMapTab(); responsiveVoice.speak('Switch'); },
 	'start over': function() { startover(); responsiveVoice.speak('starting over'); }
 	};
   // Add commands to annyang
@@ -121,6 +122,10 @@ function exportImage() {
 function startover(){
 	viz.revertAllAsync();
 }
+function switchToMapTab() {
+  workbook.activateSheetAsync("Viz");
+}
+
 
 </script>
 
