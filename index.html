@@ -36,13 +36,14 @@ if (annyang) {
 	'Add Independant': function() { addIndependantToSelection(); responsiveVoice.speak('Adding independant to selection', 'UK English Female'); },
 	'Clear Selections': function() { clearSelections(); responsiveVoice.speak('Clearing the Selections', 'UK English Female'); },
 	
+	'Select Action': function() { selectAction(); responsiveVoice.speak('Selecting Genre Action'); },
 	'Filter Action': function() { filterAction(); responsiveVoice.speak('Filtering by Genre Action'); },
 	'Add Filter Comedy': function() { addFilterComedy(); responsiveVoice.speak('Adding Comedy to the Genre filter'); },
 	'Clear Filter Genre': function() { clearFilterGenre(); responsiveVoice.speak('Clearing the filter Genre'); },
 	'Clear Filters': function() { clearFilters(); responsiveVoice.speak('Clearing all Filters'); },
 	
 	'Export PDF': function() { exportPDF(); responsiveVoice.speak('Exporting this dashboard as PDF'); },
-	
+	'Export Image': function() { exportImage(); responsiveVoice.speak('Exporting this dashboard as Image'); },
 	'start over': function() { startover(); responsiveVoice.speak('starting over'); }
 	};
   // Add commands to annyang
@@ -93,6 +94,10 @@ function clearSelections() {
   activeSheet.getWorksheets()[1].clearSelectedMarksAsync();
 }
 
+function selectAction() {
+  activeSheet.getWorksheets()[1].selectMarksAsync("Genre", "Action", 'REPLACE');
+}
+
 function filterAction() {
   activeSheet.getWorksheets()[1].applyFilterAsync("Genre", "Action", 'REPLACE');
 }
@@ -109,7 +114,9 @@ function clearFilters() {
 function exportPDF() {
   viz.showExportPDFDialog();
 }
-
+function exportImage() {
+  viz.showExportImageDialog();
+}
 //Start Viz Over
 function startover(){
 	viz.revertAllAsync();
