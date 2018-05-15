@@ -31,13 +31,22 @@ if (annyang) {
   	'Select Sony': function() { selectSony(); responsiveVoice.speak('selecting Sony', 'UK English Male'); },
  	'Select Fox': function() { selectFox(); responsiveVoice.speak('selecting Fox studios'); },
  	'Select Universal': function() { selectUniversal(); responsiveVoice.speak('selecting Universal Pictures', 'UK English Female'); },
- 	'Select Disney': function() { selectDisney(); responsiveVoice.speak('selecting Disnep Hours'); },
+ 	'Select Disney': function() { selectDisney(); responsiveVoice.speak('selecting Disney Hours', 'UK English Female'); },
+	
+	'Add Independant to selection': function() { addIndependantToSelection(); responsiveVoice.speak('Adding independant to selection', 'UK English Female'); },
+	'Clear Selections': function() { clearSelections(); responsiveVoice.speak('Clearing the Selections', 'UK English Female'); },
+	
+	'Filter Action': function() { filterAction(); responsiveVoice.speak('Filtering by Genre Action'); },
+	'Add Filter Comedy': function() { addFilterComedy(); responsiveVoice.speak('Adding Comedy to the Genre filter'); },
+	'Clear Filter Genre': function() { clearFilterGenre(); responsiveVoice.speak('Clearing the filter Genre'); },
+	'Clear Filters': function() { clearFilters(); responsiveVoice.speak('Clearing all Filters'); },
+	
+	'Export PDF': function() { exportPDF(); responsiveVoice.speak('Exporting this dashboard as PDF'); },
+	
 	'start over': function() { startover(); responsiveVoice.speak('starting over'); }
- };
-  
+	};
   // Add commands to annyang
   annyang.addCommands(commands);
-  
   // Start listening.
   annyang.start();
 }
@@ -46,53 +55,79 @@ if (annyang) {
 <script>
 var viz, workbook, activeSheet, Worksheet, worksheet;
 function initializeViz(){
-
-var placeholderDiv = document.getElementById("tableauViz");
-
-var url = "https://public.tableau.com/views/BetaMovie/Ratings";
-var options = {
-   width: "800",   
-   height: "627",
-   hideTabs: true,
-   hideToolbar: true,
-  onFirstInteractive: function () {
-  workbook = viz.getWorkbook();
-  activeSheet = workbook.getActiveSheet();
-}
-};
-  viz = new tableauSoftware.Viz(placeholderDiv, url, options);
+	var placeholderDiv = document.getElementById("tableauViz");
+	var url = "https://public.tableau.com/views/BetaMovie/Ratings";
+	var options = {
+	   width: "800",   
+	   height: "627",
+	   hideTabs: true,
+	   hideToolbar: true,
+		  onFirstInteractive: function () {
+		  workbook = viz.getWorkbook();
+		  activeSheet = workbook.getActiveSheet();
+		}
+	};
+	  viz = new tableauSoftware.Viz(placeholderDiv, url, options);
 }
 
 //Tabitha says hello
-responsiveVoice.speak('Hi. My name is Karn. How may I help you?');
+responsiveVoice.speak('Hi. My name is Karn. How may I help you? You can filter by Genre and select Studios');
 
 //Make Character selection
-function selectDisney()
-	{
+function selectDisney(){
 	activeSheet.getWorksheets()[1].selectMarksAsync('Lead Studio', 'Disney', 'REPLACE'); 
-	}
+}
 
-function selectFox()
-	{
+function selectFox(){
 	activeSheet.getWorksheets()[1].selectMarksAsync('Lead Studio', 'Fox', 'REPLACE'); 
-	}
+}
 
-function selectUniversal()
-	{
+function selectUniversal(){
 	activeSheet.getWorksheets()[1].selectMarksAsync('Lead Studio', 'Universal', 'REPLACE'); 
-	}	
+}	
 
-function selectSony()
-	{
+function selectSony(){
 	activeSheet.getWorksheets()[1].selectMarksAsync('Lead Studio', 'Sony', 'REPLACE'); 
-	}
-	
-//Start Viz Over
-function startover()
-	{
+}
 
+function addIndependantToSelection() {
+  activeSheet.getWorksheets()[1].selectMarksAsync(
+    'Lead Studio',
+    'Independant',
+    tableau.SelectionUpdateType.ADD);
+}
+
+function clearSelections() {
+  workbook.getActiveSheet().clearSelectedMarksAsync();
+}
+
+function filterAction() {
+  activeSheet.applyFilterAsync(
+    "Genre",
+    "Action",
+    tableau.FilterUpdateType.REPLACE);
+}
+function addFilterComedy() {
+  activeSheet.applyFilterAsync(
+    "Genre",
+    "Comedy",
+    tableau.FilterUpdateType.ADD);
+}
+function clearFilterGenre() {
+  activeSheet.clearFilterAsync("Genre");
+}
+function clearFilters() {
+  activeSheet.clearFilterAsync("Genre");
+}
+
+function exportPDF() {
+  viz.showExportPDFDialog();
+}
+
+//Start Viz Over
+function startover(){
 	viz.revertAllAsync();
-	}
+}
 
 </script>
 
