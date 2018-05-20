@@ -28,10 +28,10 @@ Say: <i>"Select Sony" and "start over"</i>
 if (annyang) {
   // These are the voice commands in quotes followed by the function
   var commands = {
-  	<!-- 'Select Sony': function() { selectSony(); responsiveVoice.speak('selecting Sony', 'UK English Male'); }, -->
- 	<!-- 'Select Fox': function() { selectFox(); responsiveVoice.speak('selecting Fox studios'); }, -->
- 	<!-- 'Select Universal': function() { selectUniversal(); responsiveVoice.speak('selecting Universal Pictures', 'UK English Female'); }, -->
- 	<!-- 'Select Disney': function() { selectDisney(); responsiveVoice.speak('selecting Disney Hours', 'UK English Female'); }, -->
+  	/* 'Select Sony': function() { selectSony(); responsiveVoice.speak('selecting Sony', 'UK English Male'); },
+ 	'Select Fox': function() { selectFox(); responsiveVoice.speak('selecting Fox studios'); },
+ 	'Select Universal': function() { selectUniversal(); responsiveVoice.speak('selecting Universal Pictures', 'UK English Female'); },
+ 	'Select Disney': function() { selectDisney(); responsiveVoice.speak('selecting Disney Hours', 'UK English Female'); }, */
 	'Select Studio *lstudio': function() { selectLStudio(); responsiveVoice.speak('selecting '+lstudio, 'UK English Male'); },
 	
 	'Add Independant': function() { addIndependantToSelection(); responsiveVoice.speak('Adding independant to selection', 'UK English Female'); },
