@@ -46,12 +46,20 @@ if (annyang) {
 	'Export PDF': function() { exportPDF(); responsiveVoice.speak('Exporting this dashboard as PDF'); },
 	'Export Image': function() { exportImage(); responsiveVoice.speak('Exporting this dashboard as Image'); },
 	'Switch': function() { switchToMapTab(); responsiveVoice.speak('Switch'); },
-	'start over': function() { startover(); responsiveVoice.speak('starting over'); }
+	'start over': function() { startover(); responsiveVoice.speak('starting over'); },
+	
+	'show me *search':      showSpoken,
 	};
   // Add commands to annyang
   annyang.addCommands(commands);
   // Start listening.
   annyang.start();
+  var showSpoken = function(tag) {
+	  var new_tag = tag.toLowerCase().replace(/\b[a-z]/g, function(txtVal) {
+			return txtVal.toUpperCase();
+		});
+		$("<span><li>"+new_tag+"</li></span>").appendTo("#SearchHistory ul");
+	};
 }
 </script>
 
@@ -132,7 +140,9 @@ function switchToMapTab() {
 
 
 </script>
-
+  <section id="section_biz_use">
+	<div id="SearchHistory"><ul>Search History</ul></div>
+  </section>
 </body>
 </html>		
 		
