@@ -14,6 +14,7 @@
 		<script src="responsivevoice.js"></script> <!-- Voice Response -->
 		
 		<script src="https://public.tableausoftware.com/javascripts/api/tableau-2.min.js " type="text/javascript"></script> 
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 </head>	
 
@@ -46,15 +47,21 @@ if (annyang) {
 	'Export PDF': function() { exportPDF(); responsiveVoice.speak('Exporting this dashboard as PDF'); },
 	'Export Image': function() { exportImage(); responsiveVoice.speak('Exporting this dashboard as Image'); },
 	'Switch': function() { switchToMapTab(); responsiveVoice.speak('Switch'); },
-	'start over': function() { startover(); responsiveVoice.speak('starting over'); },
 	
 	'show me *search':      showSpoken,
+	'hide *search': function() {execFunc(); responsiveVoice.speak('You have spoken hide');},
+	
+	
+	'start over': function() { startover(); responsiveVoice.speak('starting over'); }
+	
+	
 	};
   // Add commands to annyang
   annyang.addCommands(commands);
   // Start listening.
   annyang.start();
   var showSpoken = function(tag) {
+		responsiveVoice.speak('You have spoken show');
 	  var new_tag = tag.toLowerCase().replace(/\b[a-z]/g, function(txtVal) {
 			return txtVal.toUpperCase();
 		});
@@ -84,7 +91,14 @@ function initializeViz(){
 //Tabitha says hello
 responsiveVoice.speak('Hi. My name is Karn. How may I help you? You can filter by Genre and select Studios');
 
-//Make Character selection
+//Make the command
+function execFunc(tag) {
+	  var new_tag = tag.toLowerCase().replace(/\b[a-z]/g, function(txtVal) {
+			return txtVal.toUpperCase();
+		});
+		$("<span><li>"+new_tag+"</li></span>").appendTo("#SearchHistory ul");
+}
+	
 function selectLStudio(tag){
 	activeSheet.getWorksheets()[1].selectMarksAsync('Lead Studio', tag, 'REPLACE'); 
 }
